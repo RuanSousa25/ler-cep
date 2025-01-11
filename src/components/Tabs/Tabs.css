@@ -1,0 +1,20 @@
+.tab-controller {
+  box-sizing: border-box;
+  width: 50rem;
+  max-width: 60%;
+  height: 35rem;
+}
+.tab-controller nav {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+}
+.identifier-button {
+  border: none;
+  outline: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 2rem;
+  width: 10rem;
+  cursor: pointer;
+}
