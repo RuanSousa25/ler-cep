@@ -8,6 +8,7 @@ export const useCep = (data) => {
     let neighbours = [];
     let uf = [];
     let cities = [];
+    let ranges = [];
     console.log(data);
     data.map((range) => {
       for (let i = 0; i < cepArray.length; i++) {
@@ -15,7 +16,9 @@ export const useCep = (data) => {
           neighbours.push(range.bairro);
           uf.push(range.UF);
           cities.push(range.cidade);
+          ranges.push(range);
           cepArray.splice(i, 1);
+          return;
         }
       }
     });
@@ -24,6 +27,7 @@ export const useCep = (data) => {
       uf: [...new Set(uf)],
       cities: [...new Set(cities)],
       lastingCeps: cepArray,
+      ranges,
     };
   }
 

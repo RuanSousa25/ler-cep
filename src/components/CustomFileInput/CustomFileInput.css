@@ -1,0 +1,5 @@
+.custom-input {
+  box-sizing: border-box;
+  border: 1px dashed white;
+  padding: 3px;
+}

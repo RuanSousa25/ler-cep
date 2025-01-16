@@ -1,0 +1,50 @@
+.input-space {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 2px;
+  gap: 5px;
+  width: 100%;
+}
+.input-cep {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 5px 8px;
+  font-size: 16px;
+  background-color: #00000020;
+  border-bottom: 1px solid brown;
+  flex: 1;
+  color: white;
+}
+.button {
+  border: none;
+  border-radius: 4px;
+  padding: 3px 10px;
+  background-color: brown;
+  cursor: pointer;
+  color: white;
+}
+table {
+  width: 100%;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+.result-space {
+  display: flex;
+  flex-direction: column;
+}
+.result-label {
+  background-color: brown;
+  border: 2px solid #2b2b2b;
+  width: 150px;
+  text-align: center;
+}
+.result-list {
+}
