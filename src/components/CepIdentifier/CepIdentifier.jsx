@@ -20,7 +20,7 @@ export default function CepIdentifier() {
     setRegionData(findCepRange(inputedCeps.split(",")));
   }
   return (
-    <div>
+    <div className="cep-identifier">
       <h1>Busca CEP</h1>
       <div className="input-space">
         <input
@@ -40,25 +40,28 @@ export default function CepIdentifier() {
         <span className="result-space">
           <span className="result-label">Bairros</span>
           <span className="result-list">
-            {regionData.neighbours.map((neighour) => (
+            {/* {regionData.neighbours.map((neighour) => (
               <p>{neighour}</p>
-            ))}
+            ))} */}
+            {regionData.neighbours.join(", ")}
           </span>
         </span>
         <span className="result-space">
           <span className="result-label">Cidades</span>
           <span className="result-list">
-            {regionData.cities.map((city) => (
+            {/* {regionData.cities.map((city) => (
               <p>{city}</p>
-            ))}
+            ))} */}
+            {regionData.cities.join(", ")}
           </span>
         </span>
         <span className="result-space">
           <span className="result-label">UFs</span>
           <span className="result-list">
-            {regionData.uf.map((state) => (
+            {/* {regionData.uf.map((state) => (
               <p>{state}</p>
-            ))}
+            ))} */}
+            {regionData.uf.join(", ")}
           </span>
         </span>
       </div>

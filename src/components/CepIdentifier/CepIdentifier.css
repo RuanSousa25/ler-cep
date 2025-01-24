@@ -1,3 +1,8 @@
+.cep-identifier {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .input-space {
   box-sizing: border-box;
   display: flex;
@@ -35,10 +40,12 @@ table {
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
+  flex: 1;
 }
 .result-space {
   display: flex;
   flex-direction: column;
+  height: 25%;
 }
 .result-label {
   background-color: brown;
