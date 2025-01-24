@@ -1,5 +1,15 @@
+.custom-input-space {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
 .custom-input {
   box-sizing: border-box;
   border: 1px dashed white;
   padding: 3px;
+  flex: 1;
+  cursor: pointer;
+}
+.custom-input-space button {
+  cursor: pointer;
 }

@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { utils, read } from "xlsx";
-import { useCep } from "../../Hooks/useCep";
+import { useContext, useState } from "react";
 
+import { useCep } from "../../Hooks/useCep";
+import { CepContext } from "../../Context/CepContext";
 import "./CepIdentifier.css";
 
 export default function CepIdentifier() {
-  const [sheet, setSheet] = useState([]);
   const [regionData, setRegionData] = useState({
     uf: [],
     neighbours: [],
@@ -13,19 +12,9 @@ export default function CepIdentifier() {
     lastingCeps: [],
     ranges: [],
   });
-  const { findCepRange } = useCep(sheet);
+  const { cepSheet } = useContext(CepContext);
+  const { findCepRange } = useCep(cepSheet);
   const [inputedCeps, setInputedCeps] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const sheetFile = await fetch("/Ceps_Bairros_Faixa.xls");
-      const sheetArray = await sheetFile.arrayBuffer();
-      const objectArray = read(sheetArray);
-      setSheet(
-        utils.sheet_to_json(objectArray.Sheets[objectArray.SheetNames[0]])
-      );
-    })();
-  }, []);
 
   function handleClick() {
     setRegionData(findCepRange(inputedCeps.split(",")));

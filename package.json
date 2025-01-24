@@ -1,6 +1,7 @@
 {
   "name": "leceps",
   "version": "0.1.0",
+  "homepage": "https://ruansousa25.github.io/ler-cep",
   "private": true,
   "dependencies": {
     "cra-template": "1.2.0",
@@ -12,6 +13,8 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -34,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
