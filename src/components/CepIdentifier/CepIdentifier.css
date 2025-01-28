@@ -18,18 +18,27 @@
   outline: none;
   padding: 5px 8px;
   font-size: 16px;
-  background-color: #00000020;
-  border-bottom: 1px solid brown;
+  background-color: #14283cc0;
+  border-bottom: 1px solid #596466;
+  opacity: 1;
   flex: 1;
   color: white;
+}
+.input-cep:disabled {
+  cursor: default;
 }
 .button {
   border: none;
   border-radius: 4px;
   padding: 3px 10px;
-  background-color: brown;
+  background-color: #14283c;
+  border: 1px solid #596466;
   cursor: pointer;
   color: white;
+}
+.button:disabled {
+  opacity: 0.9;
+  cursor: default;
 }
 table {
   width: 100%;
@@ -48,8 +57,9 @@ table {
   height: 25%;
 }
 .result-label {
-  background-color: brown;
-  border: 2px solid #2b2b2b;
+  background-color: #14283c;
+  border: 1px solid #596466;
+  padding: 5px 8px;
   width: 150px;
   text-align: center;
 }

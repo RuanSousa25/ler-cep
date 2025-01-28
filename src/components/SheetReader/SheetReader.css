@@ -1,0 +1,13 @@
+.sheet-reader {
+  display: flex;
+  flex-direction: column;
+}
+.file-input-span {
+  margin: 10px 0px;
+}
+.sheet-reader .result {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-around;
+}

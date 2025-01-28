@@ -18,4 +18,9 @@
   width: 10rem;
   cursor: pointer;
   color: white;
+  background-color: #28283c;
+  opacity: 0.8;
+}
+.identifier-button.active {
+  opacity: 1;
 }

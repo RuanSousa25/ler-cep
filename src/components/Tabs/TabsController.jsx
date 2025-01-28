@@ -13,9 +13,10 @@ export default function TabsController({ children, identifiers }) {
       <nav>
         {identifiers.map((identifier, index) => (
           <button
-            className="identifier-button"
+            className={
+              "identifier-button " + (index === activeTab ? "active" : "")
+            }
             key={identifier}
-            style={{ backgroundColor: children[index].props.color }}
             onClick={() => handleActiveTab(index)}
           >
             {identifier}

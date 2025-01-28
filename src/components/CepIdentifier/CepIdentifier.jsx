@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useCepContext, useContext, useState } from "react";
 
-import { useCep } from "../../Hooks/useCep";
+import { useCepSheet } from "../../Hooks/useCepSheet";
 import { CepContext } from "../../Context/CepContext";
 import "./CepIdentifier.css";
 
@@ -13,7 +13,7 @@ export default function CepIdentifier() {
     ranges: [],
   });
   const { cepSheet } = useContext(CepContext);
-  const { findCepRange } = useCep(cepSheet);
+  const { findCepRange } = useCepSheet(cepSheet);
   const [inputedCeps, setInputedCeps] = useState("");
 
   function handleClick() {
@@ -24,6 +24,7 @@ export default function CepIdentifier() {
       <h1>Busca CEP</h1>
       <div className="input-space">
         <input
+          disabled={cepSheet === null}
           className="input-cep"
           type="text"
           value={inputedCeps}
@@ -31,7 +32,11 @@ export default function CepIdentifier() {
             setInputedCeps(e.target.value);
           }}
         ></input>
-        <button className="button" onClick={handleClick}>
+        <button
+          disabled={cepSheet === null}
+          className="button"
+          onClick={handleClick}
+        >
           Enviar
         </button>
       </div>
