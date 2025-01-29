@@ -40,28 +40,44 @@ export const useCepSheet = (data) => {
   function searchCep(neighbours) {}
 
   function compareCepBand(inputedCepArray) {
-    console.log(inputedCepArray);
     setIsLoading(true);
     let regionData = [];
     let neighbours = [];
     let uf = [];
     let cities = [];
+    let uncoveredRanges = [];
     inputedCepArray.forEach((range) => {
       let dataArray = [...data];
 
-      for (let i = 0; i < dataArray.length; i++) {
-        if (dataArray[i].cepinicial >= range.cepinicial) {
-          dataArray = dataArray.slice(i);
-          break;
-        }
+      let endIndex = dataArray.findIndex(
+        (item) => item.cepfinal >= range.cepfinal
+      );
+
+      if (endIndex === -1) {
+        endIndex = dataArray.length - 1;
       }
 
-      for (let i = 0; i < dataArray.length; i++) {
-        if (dataArray[i].cepfinal >= range.cepfinal) {
-          dataArray = dataArray.slice(0, i + 1);
-          break;
-        }
+      dataArray = dataArray.slice(0, endIndex + 1);
+
+      let startIndex = dataArray.findIndex(
+        (item) => item.cepinicial >= range.cepinicial
+      );
+
+      if (
+        startIndex === -1 &&
+        range.cepInicial > dataArray[endIndex].cepfinal
+      ) {
+        uncoveredRanges.push(range);
+        return;
+      } else if (startIndex === -1) {
+        startIndex = dataArray.length - 1;
       }
+      if (dataArray[startIndex - 1].cepfinal >= range.cepinicial) {
+        startIndex--;
+      }
+
+      dataArray = dataArray.slice(startIndex);
+
       regionData.push(...dataArray);
     });
     let ranges = [...new Set(regionData)];
@@ -76,6 +92,7 @@ export const useCepSheet = (data) => {
       uf: [...new Set(uf)],
       cities: [...new Set(cities)],
       ranges,
+      uncoveredRanges,
     };
   }
 
