@@ -1,4 +1,5 @@
 import "./App.css";
+import "./globalstyle.css";
 import CepIdentifier from "./components/CepIdentifier/CepIdentifier";
 import Tab from "./components/Tabs/Tab";
 import TabsController from "./components/Tabs/TabsController";

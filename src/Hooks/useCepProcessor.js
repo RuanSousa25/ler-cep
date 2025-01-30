@@ -18,7 +18,7 @@ export function useCepProcessor() {
           ...range,
         };
       });
-      console.log("planilha carregada", formatedSheet);
+      console.log(formatedSheet);
       return formatedSheet;
     } catch (error) {
       console.log("Não foi possível enviar a planilha", error);
@@ -27,8 +27,31 @@ export function useCepProcessor() {
       setIsProcessorLoading(false);
     }
   }
+
+  async function createHierarchyModel(sheetArray) {
+    setIsProcessorLoading(true);
+    let hierarchyArray = {};
+    sheetArray.forEach(({ cepinicial, cepfinal, bairro, cidade, UF }) => {
+      if (!hierarchyArray[UF]) {
+        hierarchyArray[UF] = {};
+      }
+      if (!hierarchyArray[UF][cidade]) {
+        hierarchyArray[UF][cidade] = {};
+      }
+      if (!hierarchyArray[UF][cidade][bairro]) {
+        hierarchyArray[UF][cidade][bairro] = [];
+      }
+
+      hierarchyArray[UF][cidade][bairro].push({ cepinicial, cepfinal });
+    });
+    setIsProcessorLoading(false);
+    console.log(hierarchyArray);
+    return hierarchyArray;
+  }
+
   return {
     isProcessorLoading,
     parseExcelFile,
+    createHierarchyModel,
   };
 }

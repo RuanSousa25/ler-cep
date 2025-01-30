@@ -1,9 +1,11 @@
 .sheet-reader {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .file-input-span {
   margin: 10px 0px;
+  width: 100%;
 }
 .sheet-reader .result {
   display: flex;

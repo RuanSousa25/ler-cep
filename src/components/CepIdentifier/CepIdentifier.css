@@ -3,6 +3,9 @@
   flex-direction: column;
   height: 100%;
 }
+.cep-identifier-header {
+}
+
 .input-space {
   box-sizing: border-box;
   display: flex;
@@ -26,20 +29,9 @@
 }
 .input-cep:disabled {
   cursor: default;
+  opacity: 0.7;
 }
-.button {
-  border: none;
-  border-radius: 4px;
-  padding: 3px 10px;
-  background-color: #14283c;
-  border: 1px solid #596466;
-  cursor: pointer;
-  color: white;
-}
-.button:disabled {
-  opacity: 0.9;
-  cursor: default;
-}
+
 table {
   width: 100%;
 }
@@ -48,13 +40,14 @@ table {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
+  padding: 5px 10px;
+  gap: 10px;
   flex: 1;
 }
 .result-space {
   display: flex;
   flex-direction: column;
-  height: 25%;
+  height: 33%;
 }
 .result-label {
   background-color: #14283c;

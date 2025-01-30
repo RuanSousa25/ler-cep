@@ -19,10 +19,27 @@ export default function SheetReader() {
   }
   return (
     <div className="sheet-reader">
-      <h1>Ler Planilha</h1>
-      <span className="file-input-span">
-        <CustomFileInput onButtonClick={handleButtonClick} />
-      </span>
+      <div className="tab-header">
+        <span>
+          <h2>Ler Planilha</h2>
+          {cepSheet === null && (
+            <p>
+              Você precisa adicionar uma base de CEPs para utilizar essa função
+            </p>
+          )}
+          {regionData.length !== 0 && (
+            <button className="button">Visualização de planilha</button>
+          )}
+        </span>
+        <span className="file-input-span">
+          <CustomFileInput
+            onButtonClick={handleButtonClick}
+            buttonClassName="button"
+            inputClassName=""
+            disabled={cepSheet === null && true}
+          />
+        </span>
+      </div>
       <div className="result">
         <span className="result-space">
           <span className="result-label">Bairros</span>

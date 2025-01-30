@@ -21,24 +21,33 @@ export default function CepIdentifier() {
   }
   return (
     <div className="cep-identifier">
-      <h1>Busca CEP</h1>
-      <div className="input-space">
-        <input
-          disabled={cepSheet === null}
-          className="input-cep"
-          type="text"
-          value={inputedCeps}
-          onChange={(e) => {
-            setInputedCeps(e.target.value);
-          }}
-        ></input>
-        <button
-          disabled={cepSheet === null}
-          className="button"
-          onClick={handleClick}
-        >
-          Enviar
-        </button>
+      <div className="tab-header cep-identifier-header">
+        <span>
+          <h2>Busca CEP</h2>
+          {cepSheet === null && (
+            <p>
+              Você precisa adicionar uma base de CEPs para utilizar essa função
+            </p>
+          )}
+        </span>
+        <div className="input-space">
+          <input
+            disabled={cepSheet === null}
+            className="input-cep"
+            type="text"
+            value={inputedCeps}
+            onChange={(e) => {
+              setInputedCeps(e.target.value);
+            }}
+          ></input>
+          <button
+            disabled={cepSheet === null}
+            className="button"
+            onClick={handleClick}
+          >
+            Enviar
+          </button>
+        </div>
       </div>
 
       <div className="result">

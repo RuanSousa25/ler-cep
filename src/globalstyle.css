@@ -1,0 +1,30 @@
+.button {
+  border: none;
+  border-radius: 4px;
+  padding: 3px 10px;
+  background-color: #14283c;
+  border: 1px solid #596466;
+  cursor: pointer;
+  color: white;
+}
+.button:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+.tab-header {
+  padding: 10px;
+  background-color: transparent;
+  margin-bottom: 5px;
+  border-top-right-radius: 5px;
+}
+
+.tab-header span {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+}
+.tab-header span p {
+  font-size: 14px;
+  color: #c7c7c7;
+}

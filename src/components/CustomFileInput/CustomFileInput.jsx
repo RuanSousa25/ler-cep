@@ -4,6 +4,9 @@ import { useRef, useState } from "react";
 export default function CustomFileInput({
   accept = ".xlsx,.xls",
   onButtonClick,
+  buttonClassName = "",
+  inputClassName = "",
+  disabled = false,
 }) {
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -49,10 +52,17 @@ export default function CustomFileInput({
             ref={fileInputRef}
             style={{ display: "none" }}
             onChange={updateFile}
+            className={inputClassName}
           />
         </div>
       </div>
-      <button onClick={handleClick}>Enviar</button>
+      <button
+        onClick={handleClick}
+        className={buttonClassName}
+        disabled={disabled}
+      >
+        Enviar
+      </button>
     </div>
   );
 }
