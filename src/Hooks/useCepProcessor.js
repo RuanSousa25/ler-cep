@@ -5,16 +5,17 @@ export function useCepProcessor() {
   const [isProcessorLoading, setIsProcessorLoading] = useState(false);
 
   async function parseExcelFile(file) {
+    setIsProcessorLoading(true);
+
     try {
-      setIsProcessorLoading(true);
       const data = await file.arrayBuffer();
       const workbook = read(data, { type: "array" });
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = utils.sheet_to_json(sheet);
       const formatedSheet = jsonData.map((range) => {
         return {
-          cepinicial: Number(range.cepinicial),
-          cepfinal: Number(range.cepfinal),
+          cep_inicial: Number(range.cep_inicial.replace(/\D/g, "")),
+          cep_final: Number(range.cep_final.replace(/\D/g, "")),
           ...range,
         };
       });
@@ -31,18 +32,18 @@ export function useCepProcessor() {
   async function createHierarchyModel(sheetArray) {
     setIsProcessorLoading(true);
     let hierarchyArray = {};
-    sheetArray.forEach(({ cepinicial, cepfinal, bairro, cidade, UF }) => {
-      if (!hierarchyArray[UF]) {
-        hierarchyArray[UF] = {};
+    sheetArray.forEach(({ cep_inicial, cep_final, bairro, cidade, uf }) => {
+      if (!hierarchyArray[uf]) {
+        hierarchyArray[uf] = {};
       }
-      if (!hierarchyArray[UF][cidade]) {
-        hierarchyArray[UF][cidade] = {};
+      if (!hierarchyArray[uf][cidade]) {
+        hierarchyArray[uf][cidade] = {};
       }
-      if (!hierarchyArray[UF][cidade][bairro]) {
-        hierarchyArray[UF][cidade][bairro] = [];
+      if (!hierarchyArray[uf][cidade][bairro]) {
+        hierarchyArray[uf][cidade][bairro] = [];
       }
 
-      hierarchyArray[UF][cidade][bairro].push({ cepinicial, cepfinal });
+      hierarchyArray[uf][cidade][bairro].push({ cep_inicial, cep_final });
     });
     setIsProcessorLoading(false);
     console.log(hierarchyArray);

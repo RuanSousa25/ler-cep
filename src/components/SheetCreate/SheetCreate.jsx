@@ -10,7 +10,7 @@ export default function SheetCreate() {
     <div className="sheet-create">
       <h1>Criar Planilha</h1>
       <span>
-        <DropdownFilter label={"Bairo"} />
+        <DropdownFilter label={"Bairro"} />
       </span>
     </div>
   );

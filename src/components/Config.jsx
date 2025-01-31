@@ -33,7 +33,7 @@ export default function Config() {
           />
         </span>
         {isProcessorLoading ? (
-          <AiOutlineLoading3Quarters className="loading-icon" />
+          <p>Carregando...</p>
         ) : (
           <>
             <div className="config-content">

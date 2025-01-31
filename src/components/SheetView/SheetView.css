@@ -1,0 +1,44 @@
+.sheet-view {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 70vh;
+  overflow: auto;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px 16px;
+  z-index: 1000;
+}
+
+.sheet-view table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sheet-view th,
+.sheet-view td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.sheet-view th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.close-button {
+  position: sticky;
+  top: 10px;
+  margin: 10px 0;
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
