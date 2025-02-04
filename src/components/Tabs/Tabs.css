@@ -3,6 +3,11 @@
   width: 50rem;
   max-width: 60%;
   height: 35rem;
+  display: flex;
+  flex-direction: column;
+}
+.tab-controller {
+  box-sizing: border-box;
 }
 .tab-controller nav {
   width: 100%;

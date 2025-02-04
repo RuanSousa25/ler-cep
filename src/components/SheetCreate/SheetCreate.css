@@ -1,0 +1,9 @@
+.sheet-create {
+  padding: 0 10px;
+}
+.filters {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

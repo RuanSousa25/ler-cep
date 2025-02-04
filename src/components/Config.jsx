@@ -8,15 +8,16 @@ import { useCepSheet } from "../Hooks/useCepSheet";
 import { useCepProcessor } from "../Hooks/useCepProcessor";
 
 export default function Config() {
-  const { loadCepSheet } = useContext(CepContext);
+  const { loadCepSheet, loadHierarchyCepSheet } = useContext(CepContext);
   const { isProcessorLoading, parseExcelFile, createHierarchyModel } =
     useCepProcessor();
   const [configActive, setConfigActive] = useState(false);
 
   async function handleSheetUpload(file) {
     const sheetArray = await parseExcelFile(file);
-    const hierarchyArray = await createHierarchyModel(sheetArray);
+    const hierarchySheet = await createHierarchyModel(sheetArray);
     loadCepSheet(sheetArray);
+    loadHierarchyCepSheet(hierarchySheet);
   }
 
   return (

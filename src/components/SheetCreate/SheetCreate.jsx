@@ -4,14 +4,25 @@ import DropdownFilter from "../DropdownFilter/DropdownFilter";
 import "./SheetCreate.css";
 
 export default function SheetCreate() {
-  const { cepSheet } = useContext(CepContext);
+  const { cepSheet, hierarchyCepSheet } = useContext(CepContext);
 
   return (
     <div className="sheet-create">
-      <h1>Criar Planilha</h1>
-      <span>
-        <DropdownFilter label={"Bairro"} />
-      </span>
+      <h2>Criar Planilha</h2>
+      <div className="filters">
+        <DropdownFilter
+          options={Object.entries(hierarchyCepSheet).map((value) => value[0])}
+          label={"Bairro"}
+        />
+        <DropdownFilter
+          options={Object.entries(hierarchyCepSheet).map((value) => value[0])}
+          label={"Cidade"}
+        />
+        <DropdownFilter
+          options={Object.entries(hierarchyCepSheet).map((value) => value[0])}
+          label={"UF"}
+        />
+      </div>
     </div>
   );
 }

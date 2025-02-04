@@ -7,6 +7,7 @@ import Config from "./components/Config";
 import CepProvider from "./Context/CepContext";
 import SheetCreate from "./components/SheetCreate/SheetCreate";
 import SheetReader from "./components/SheetReader/SheetReader";
+import PolygonCreate from "./components/PolygonCreate/PolygonCreate";
 function App() {
   return (
     <div className="App">
@@ -15,20 +16,22 @@ function App() {
         <TabsController
           identifiers={[
             "Listar Bairro",
-            "Listar Polígono",
-            // "Criar Planilha",
+            "Criar Planilha",
             "Ler Planilha",
+            "Criar Polígono",
           ]}
         >
           <Tab color={"#e0b138"}>
             <CepIdentifier />
           </Tab>
-          <Tab color={"#596466"}>Listar Polígonos</Tab>
-          {/* <Tab color={"#e0b138"}>
+          <Tab color={"#e0b138"}>
             <SheetCreate />
-          </Tab> */}
+          </Tab>
           <Tab color={"#e0b138"}>
             <SheetReader />
+          </Tab>
+          <Tab color={"#e0b138"}>
+            <PolygonCreate />
           </Tab>
         </TabsController>
       </CepProvider>

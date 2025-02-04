@@ -1,0 +1,36 @@
+.polygon-create {
+  padding: 5px 10px;
+}
+.polygon-create > span {
+  display: flex;
+  flex-direction: column;
+}
+.polygon-create > span > span {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 0px;
+  gap: 10px;
+  align-items: center;
+}
+.polygon-create > span > span > label {
+  width: 70px;
+}
+.polygon-create input[type="text"] {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 5px 8px;
+  font-size: 16px;
+  background-color: #14283c74;
+  border-bottom: 1px solid #596466;
+  opacity: 1;
+  color: white;
+}
+.polygon-create button {
+  width: 140px;
+  padding: 6px 4px;
+}
+.polygon-result {
+  overflow: auto;
+  height: 300px;
+}
