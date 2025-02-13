@@ -30,6 +30,7 @@
   flex-direction: column;
   border-radius: 5px;
   color: white;
+  z-index: 1000;
 }
 .config-content {
   flex-direction: column;

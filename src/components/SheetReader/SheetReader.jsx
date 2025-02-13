@@ -17,6 +17,7 @@ export default function SheetReader() {
   async function handleButtonClick(file) {
     console.log(regionData);
     const sheetArray = await parseExcelFile(file);
+    console.log(sheetArray);
     let dataArray = compareCepBand(sheetArray);
     setRegionData(dataArray);
   }

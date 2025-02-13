@@ -50,6 +50,9 @@ export const useCepSheet = (data) => {
         (item) => item.cep_final >= range.cep_final
       );
 
+      if (dataArray[endIndex].cep_inicial > range.cep_final) {
+        endIndex--;
+      }
       //Se ultrapassar todos as faixas, define como a última faixa cadastrada
       if (endIndex === -1) {
         endIndex = dataArray.length - 1;
@@ -74,13 +77,18 @@ export const useCepSheet = (data) => {
         startIndex = dataArray.length - 1;
       }
 
-      if (dataArray[startIndex - 1].cep_final >= range.cep_inicial) {
+      if (
+        startIndex !== 0 &&
+        dataArray[startIndex - 1].cep_final >= range.cep_inicial
+      ) {
         startIndex--;
       }
-
+      console.log(
+        `${startIndex} (${range.cep_inicial}) - ${endIndex} (${range.cep_final})`
+      );
       //recorta todos os elementos anteriores ao index inicial
       dataArray = dataArray.slice(startIndex);
-
+      console.log(dataArray);
       //adiciona o resto ao resultado
       regionData.push(...dataArray);
     });

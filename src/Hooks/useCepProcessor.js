@@ -12,6 +12,7 @@ export function useCepProcessor() {
       const workbook = read(data, { type: "array" });
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = utils.sheet_to_json(sheet);
+      console.log(jsonData);
       const formatedSheet = jsonData.map((range) => {
         return {
           cep_inicial: Number(range.cep_inicial.replace(/\D/g, "")),
