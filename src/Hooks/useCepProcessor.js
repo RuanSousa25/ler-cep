@@ -6,28 +6,55 @@ export function useCepProcessor() {
 
   async function parseExcelFile(file) {
     setIsProcessorLoading(true);
-
     try {
-      const data = await file.arrayBuffer();
-      const workbook = read(data, { type: "array" });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const jsonData = utils.sheet_to_json(sheet);
-      console.log(jsonData);
-      const formatedSheet = jsonData.map((range) => {
-        return {
-          cep_inicial: Number(range.cep_inicial.replace(/\D/g, "")),
-          cep_final: Number(range.cep_final.replace(/\D/g, "")),
-          ...range,
+      // const reader = new FileReader();
+      // reader.onload = (e) => {
+      //   const data = new Uint8Array(e.target.result);
+      //   const workbook = read(data, { type: "array" });
+      //   const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      //   const jsonData = utils.sheet_to_json(sheet);
+      //   return jsonData;
+      // };
+      const data = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          resolve(new Uint8Array(e.target.result));
         };
+        reader.onerror = (error) => {
+          reject(error);
+        };
+        reader.readAsArrayBuffer(file);
       });
-      console.log(formatedSheet);
-      return formatedSheet;
+
+      const workbook = read(data, { type: "array" });
+      let allData = [];
+      workbook.SheetNames.forEach((SheetName) => {
+        const sheet = workbook.Sheets[SheetName];
+        const jsonData = utils.sheet_to_json(sheet, { raw: false, defval: "" });
+        allData = allData.concat(jsonData);
+      });
+      console.log(allData);
+      return allData;
     } catch (error) {
       console.log("Não foi possível enviar a planilha", error);
       setIsProcessorLoading(false);
+      return [];
     } finally {
       setIsProcessorLoading(false);
     }
+  }
+
+  async function formatSheet(file) {
+    let jsonData = await parseExcelFile(file);
+
+    const formatedSheet = jsonData.map((range) => {
+      return {
+        cep_inicial: Number(range.cep_inicial.replace(/\D/g, "")),
+        cep_final: Number(range.cep_final.replace(/\D/g, "")),
+        ...range,
+      };
+    });
+    return formatedSheet;
   }
 
   async function createHierarchyModel(sheetArray) {
@@ -47,7 +74,6 @@ export function useCepProcessor() {
       hierarchyArray[uf][cidade][bairro].push({ cep_inicial, cep_final });
     });
     setIsProcessorLoading(false);
-    console.log(hierarchyArray);
     return hierarchyArray;
   }
 
@@ -55,5 +81,6 @@ export function useCepProcessor() {
     isProcessorLoading,
     parseExcelFile,
     createHierarchyModel,
+    formatSheet,
   };
 }

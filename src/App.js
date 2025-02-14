@@ -1,13 +1,22 @@
+//Css
 import "./App.css";
 import "./globalstyle.css";
-import CepIdentifier from "./components/CepIdentifier/CepIdentifier";
+
+//Componentes
 import Tab from "./components/Tabs/Tab";
 import TabsController from "./components/Tabs/TabsController";
 import Config from "./components/Config";
+
+//Contexto
 import CepProvider from "./Context/CepContext";
+
+//Páginas
+import CepIdentifier from "./components/CepIdentifier/CepIdentifier";
 import SheetCreate from "./components/SheetCreate/SheetCreate";
 import SheetReader from "./components/SheetReader/SheetReader";
 import PolygonCreate from "./components/PolygonCreate/PolygonCreate";
+import PolygonReader from "./components/PolygonReader/PolygonReader";
+
 function App() {
   return (
     <div className="App">
@@ -19,19 +28,23 @@ function App() {
             "Criar Planilha",
             "Ler Planilha",
             "Criar Polígono",
+            "Ler Polígono",
           ]}
         >
-          <Tab color={"#e0b138"}>
+          <Tab>
             <CepIdentifier />
           </Tab>
-          <Tab color={"#e0b138"}>
+          <Tab>
             <SheetCreate />
           </Tab>
-          <Tab color={"#e0b138"}>
+          <Tab>
             <SheetReader />
           </Tab>
-          <Tab color={"#e0b138"}>
+          <Tab>
             <PolygonCreate />
+          </Tab>
+          <Tab>
+            <PolygonReader />
           </Tab>
         </TabsController>
       </CepProvider>

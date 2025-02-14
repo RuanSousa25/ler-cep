@@ -9,14 +9,14 @@ import SheetView from "../SheetView/SheetView";
 export default function SheetReader() {
   const { cepSheet } = useContext(CepContext);
   const { compareCepBand } = useCepSheet(cepSheet);
-  const { isProcessorLoading, parseExcelFile } = useCepProcessor();
+  const { isProcessorLoading, parseExcelFile, formatSheet } = useCepProcessor();
   const [inputedSheet, setInputedSheet] = useState(null);
   const [regionData, setRegionData] = useState([]);
   const [sheetView, setSheetView] = useState(false);
 
   async function handleButtonClick(file) {
     console.log(regionData);
-    const sheetArray = await parseExcelFile(file);
+    const sheetArray = await formatSheet(file);
     console.log(sheetArray);
     let dataArray = compareCepBand(sheetArray);
     setRegionData(dataArray);
