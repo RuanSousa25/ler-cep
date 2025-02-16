@@ -9,22 +9,48 @@ export const useCepSheet = (data) => {
     let uf = [];
     let cities = [];
     let ranges = [];
+    cepArray.forEach((cep) => {
+      cep = cep.replace(/\D/g, "");
+      let inicio = 0,
+        fim = data.length - 1;
+      let meio;
 
-    data.map((range) => {
-      for (let i = 0; i < cepArray.length; i++) {
-        let cepInputed = Number(cepArray[i].replace(/\D/g, ""));
-        let cepInicial = range.cep_inicial;
-        let cepFinal = range.cep_final;
-        if (cepInputed >= cepInicial && cepInputed <= cepFinal) {
-          neighbours.push(range.bairro);
-          uf.push(range.uf);
-          cities.push(range.cidade);
-          ranges.push(range);
-          cepArray.splice(i, 1);
-          return;
+      while (inicio <= fim) {
+        meio = Math.floor((inicio + fim) / 2);
+        console.log(`inicio: ${inicio} / fim: ${fim} / meio: ${meio}`);
+        console.log(data[meio]);
+        if (data[meio].cep_inicial <= cep && data[meio].cep_final >= cep) {
+          console.log(data[meio]);
+          neighbours.push(data[meio].bairro);
+          uf.push(data[meio].uf);
+          cities.push(data[meio].cidade);
+          ranges.push(data[meio]);
+          break;
+        } else if (cep > data[meio].cep_inicial) {
+          inicio = meio + 1;
+        } else if (cep < data[meio].cep_inicial) {
+          fim = meio - 1;
         }
       }
     });
+    console.log(neighbours);
+
+    // data.map((range) => {
+    //   for (let i = 0; i < cepArray.length; i++) {
+    //     let cepInputed = Number(cepArray[i].replace(/\D/g, ""));
+    //     let cepInicial = range.cep_inicial;
+    //     let cepFinal = range.cep_final;
+    //     if (cepInputed >= cepInicial && cepInputed <= cepFinal) {
+    // neighbours.push(range.bairro);
+    // uf.push(range.uf);
+    // cities.push(range.cidade);
+    // ranges.push(range);
+    //       cepArray.splice(i, 1);
+    //       return;
+    //     }
+    //   }
+    // });
+
     setIsLoading(false);
     return {
       neighbours: [...new Set(neighbours)],

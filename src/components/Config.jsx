@@ -9,7 +9,7 @@ import { useCepProcessor } from "../Hooks/useCepProcessor";
 import { usePolygonCoordinates } from "../Hooks/usePolygonCoordinates";
 
 export default function Config() {
-  const { loadCepSheet, loadHierarchyCepSheet, loadCoordsSheet } =
+  const { loadCepSheet, loadHierarchyCepSheet, loadCoordsSheet, loadTree } =
     useContext(CepContext);
   const {
     isProcessorLoading,
@@ -18,7 +18,7 @@ export default function Config() {
     formatSheet,
   } = useCepProcessor();
   const [configActive, setConfigActive] = useState(false);
-  const { findRegionDataInPolygon } = usePolygonCoordinates();
+  const { findRegionDataInPolygon, buildRTree } = usePolygonCoordinates();
 
   async function handleCepSheetUpload(file) {
     const sheetArray = await formatSheet(file);
@@ -30,6 +30,7 @@ export default function Config() {
     const coordArray = await parseExcelFile(file);
     console.log(coordArray);
     loadCoordsSheet(coordArray);
+    loadTree(buildRTree(coordArray));
     return;
     let ceps = await findRegionDataInPolygon([
       [-46.604770034627784, -23.55031],

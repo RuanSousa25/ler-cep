@@ -24,36 +24,50 @@ export function usePolygonCoordinates(data) {
     return { minX, maxX, minY, maxY };
   }
 
-  function buildRTree(data) {
-    const tree = new RBush();
-    const items = data.map(({ longitude, latitude, cep }) => ({
-      minX: longitude,
-      minY: latitude,
-      maxX: longitude,
-      maxY: latitude,
-      cep,
-    }));
+  function buildRTree(coordinatesSheet) {
+    if (coordinatesSheet == null) return;
+    console.log("carregando tree");
 
+    const tree = new RBush();
+    const items = coordinatesSheet.reduce(
+      (ac, { longitude, latitude, cep }) => {
+        if (!isNaN(latitude) && !isNaN(longitude)) {
+          ac.push({
+            minX: longitude,
+            minY: latitude,
+            maxX: longitude,
+            maxY: latitude,
+            cep,
+          });
+        }
+        return ac;
+      },
+      []
+    );
     tree.load(items);
+    console.log("tree carregada");
     return tree;
   }
 
-  async function findRegionDataInPolygon(vertexArr) {
-    const tree = buildRTree(data);
+  async function findRegionDataInPolygon(vertexArr, tree) {
+    //const tree = buildRTree(data);
     const bbox = getBoundingBox(vertexArr);
+    console.log(tree);
     const candidates = tree.search(bbox);
+    console.log(candidates);
     const poly = polygon([vertexArr]);
-    return candidates
+    let result = candidates
       .filter(({ minX, minY }) =>
         booleanPointInPolygon(point([minX, minY]), poly)
       )
       .map(({ cep }) => cep);
+    console.log(result);
+    return result;
     // let regionData = [];
 
     // data.forEach((range) => {
     //   let px = range.longitude,
     //     py = range.latitude;
-
     //   if (px < minX || px > maxX || py < minY || py > maxY) return;
     //   let inside = false;
 
@@ -79,5 +93,6 @@ export function usePolygonCoordinates(data) {
 
   return {
     findRegionDataInPolygon,
+    buildRTree,
   };
 }

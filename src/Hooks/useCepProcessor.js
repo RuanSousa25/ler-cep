@@ -7,14 +7,6 @@ export function useCepProcessor() {
   async function parseExcelFile(file) {
     setIsProcessorLoading(true);
     try {
-      // const reader = new FileReader();
-      // reader.onload = (e) => {
-      //   const data = new Uint8Array(e.target.result);
-      //   const workbook = read(data, { type: "array" });
-      //   const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      //   const jsonData = utils.sheet_to_json(sheet);
-      //   return jsonData;
-      // };
       const data = await new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (e) => {
