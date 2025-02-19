@@ -61,34 +61,7 @@ export function usePolygonCoordinates(data) {
         booleanPointInPolygon(point([minX, minY]), poly)
       )
       .map(({ cep }) => cep);
-    console.log(result);
     return result;
-    // let regionData = [];
-
-    // data.forEach((range) => {
-    //   let px = range.longitude,
-    //     py = range.latitude;
-    //   if (px < minX || px > maxX || py < minY || py > maxY) return;
-    //   let inside = false;
-
-    //   for (let i = 0; i < vertexArr.length - 1; i++) {
-    //     let [x1, y1] = vertexArr[i];
-    //     let [x2, y2] = vertexArr[i + 1];
-
-    //     if (
-    //       y1 > py !== y2 > py &&
-    //       px < ((x2 - x1) * (py - y1)) / (y2 - y1) + x1
-    //     ) {
-    //       inside = !inside;
-    //     }
-    //   }
-
-    //   if (inside) {
-    //     regionData.push(range.cep);
-    //   }
-    // });
-
-    //return regionData;
   }
 
   return {

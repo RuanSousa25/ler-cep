@@ -47,7 +47,6 @@ table {
 .result-space {
   display: flex;
   flex-direction: column;
-  height: 33%;
 }
 .result-label {
   background-color: #14283c;

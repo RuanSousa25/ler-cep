@@ -4,12 +4,15 @@ export const useCepSheet = (data) => {
   const [isLoading, setIsLoading] = useState(false);
 
   function findCepRange(cepArray) {
+    let count = 0;
     setIsLoading(true);
     let neighbours = [];
     let uf = [];
     let cities = [];
     let ranges = [];
+    let lastingCeps = [];
     cepArray.forEach((cep) => {
+      let found = false;
       cep = cep.replace(/\D/g, "");
       let inicio = 0,
         fim = data.length - 1;
@@ -17,10 +20,14 @@ export const useCepSheet = (data) => {
 
       while (inicio <= fim) {
         meio = Math.floor((inicio + fim) / 2);
-        console.log(`inicio: ${inicio} / fim: ${fim} / meio: ${meio}`);
-        console.log(data[meio]);
         if (data[meio].cep_inicial <= cep && data[meio].cep_final >= cep) {
-          console.log(data[meio]);
+          if (data[meio].cidade !== "Fortaleza") {
+            count++;
+            console.log(
+              `${data[meio].bairro}/${data[meio].cidade}/${data[meio].uf} - ${cep}`
+            );
+          }
+          found = true;
           neighbours.push(data[meio].bairro);
           uf.push(data[meio].uf);
           cities.push(data[meio].cidade);
@@ -31,32 +38,18 @@ export const useCepSheet = (data) => {
         } else if (cep < data[meio].cep_inicial) {
           fim = meio - 1;
         }
+        if (!found) {
+          lastingCeps.push(cep);
+        }
       }
     });
-    console.log(neighbours);
-
-    // data.map((range) => {
-    //   for (let i = 0; i < cepArray.length; i++) {
-    //     let cepInputed = Number(cepArray[i].replace(/\D/g, ""));
-    //     let cepInicial = range.cep_inicial;
-    //     let cepFinal = range.cep_final;
-    //     if (cepInputed >= cepInicial && cepInputed <= cepFinal) {
-    // neighbours.push(range.bairro);
-    // uf.push(range.uf);
-    // cities.push(range.cidade);
-    // ranges.push(range);
-    //       cepArray.splice(i, 1);
-    //       return;
-    //     }
-    //   }
-    // });
-
+    console.log(count);
     setIsLoading(false);
     return {
       neighbours: [...new Set(neighbours)],
       uf: [...new Set(uf)],
       cities: [...new Set(cities)],
-      lastingCeps: cepArray,
+      lastingCeps,
       ranges,
     };
   }
