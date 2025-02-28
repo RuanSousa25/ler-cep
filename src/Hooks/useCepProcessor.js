@@ -1,5 +1,6 @@
+import { saveAs } from "file-saver";
 import { useState } from "react";
-import { read, utils } from "xlsx";
+import { read, utils, write, writeFile } from "xlsx";
 
 export function useCepProcessor() {
   const [isProcessorLoading, setIsProcessorLoading] = useState(false);
@@ -34,6 +35,19 @@ export function useCepProcessor() {
     } finally {
       setIsProcessorLoading(false);
     }
+  }
+
+  async function parseToExcelFile(data) {
+    const worksheet = utils.json_to_sheet(data);
+
+    const workbook = utils.book_new();
+    utils.book_append_sheet(workbook, worksheet, "dados");
+
+    const excelBuffer = write(workbook, { bookType: "xlsx", type: "array" });
+
+    const file = new Blob([excelBuffer], { type: "application/octet-stream" });
+
+    saveAs(file, "planilha.xlsx");
   }
 
   async function formatSheet(file) {
@@ -72,6 +86,7 @@ export function useCepProcessor() {
   return {
     isProcessorLoading,
     parseExcelFile,
+    parseToExcelFile,
     createHierarchyModel,
     formatSheet,
   };

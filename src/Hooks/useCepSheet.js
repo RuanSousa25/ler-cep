@@ -6,7 +6,7 @@ export const useCepSheet = (data) => {
   function findCepRange(cepArray) {
     let count = 0;
     setIsLoading(true);
-    let neighbours = [];
+    let neighbors = [];
     let uf = [];
     let cities = [];
     let ranges = [];
@@ -23,12 +23,9 @@ export const useCepSheet = (data) => {
         if (data[meio].cep_inicial <= cep && data[meio].cep_final >= cep) {
           if (data[meio].cidade !== "Fortaleza") {
             count++;
-            console.log(
-              `${data[meio].bairro}/${data[meio].cidade}/${data[meio].uf} - ${cep}`
-            );
           }
           found = true;
-          neighbours.push(data[meio].bairro);
+          neighbors.push(data[meio].bairro);
           uf.push(data[meio].uf);
           cities.push(data[meio].cidade);
           ranges.push(data[meio]);
@@ -46,7 +43,7 @@ export const useCepSheet = (data) => {
     console.log(count);
     setIsLoading(false);
     return {
-      neighbours: [...new Set(neighbours)],
+      neighbors: [...new Set(neighbors)],
       uf: [...new Set(uf)],
       cities: [...new Set(cities)],
       lastingCeps,
@@ -57,7 +54,7 @@ export const useCepSheet = (data) => {
   function compareCepBand(inputedCepArray) {
     setIsLoading(true);
     let regionData = [];
-    let neighbours = [];
+    let neighbors = [];
     let uf = [];
     let cities = [];
     let uncoveredRanges = [];
@@ -102,27 +99,25 @@ export const useCepSheet = (data) => {
       ) {
         startIndex--;
       }
-      console.log(
-        `${startIndex} (${range.cep_inicial}) - ${endIndex} (${range.cep_final})`
-      );
+
       //recorta todos os elementos anteriores ao index inicial
       dataArray = dataArray.slice(startIndex);
-      console.log(dataArray);
       //adiciona o resto ao resultado
       regionData.push(...dataArray);
     });
 
     let ranges = [...new Set(regionData)];
     regionData.forEach((range) => {
-      neighbours.push(range.bairro);
+      neighbors.push(`${range.bairro} (${range.cidade} - ${range.uf})`);
       cities.push(range.cidade);
       uf.push(range.uf);
     });
 
+    console.log(neighbors);
     setIsLoading(false);
 
     return {
-      neighbours: [...new Set(neighbours)],
+      neighbors: [...new Set(neighbors)],
       uf: [...new Set(uf)],
       cities: [...new Set(cities)],
       ranges,

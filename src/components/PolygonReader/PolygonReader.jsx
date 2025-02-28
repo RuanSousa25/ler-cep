@@ -45,13 +45,13 @@ export default function PolygonReader() {
         <span className="result-space">
           <span className="result-label">Bairros</span>
           <span className="result-list">
-            {/* {regionData.neighbours.map((neighour) => (
+            {/* {regionData.neighbors.map((neighour) => (
               <p>{neighour}</p>
             ))} */}
             {isProcessorLoading ? (
               <p>Carregando...</p>
             ) : (
-              regionData.neighbours && regionData.neighbours.join(", ")
+              regionData.neighbors && regionData.neighbors.join(", ")
             )}
           </span>
         </span>

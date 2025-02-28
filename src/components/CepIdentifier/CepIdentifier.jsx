@@ -7,7 +7,7 @@ import "./CepIdentifier.css";
 export default function CepIdentifier() {
   const [regionData, setRegionData] = useState({
     uf: [],
-    neighbours: [],
+    neighbors: [],
     cities: [],
     lastingCeps: [],
     ranges: [],
@@ -54,10 +54,10 @@ export default function CepIdentifier() {
         <span className="result-space">
           <span className="result-label">Bairros</span>
           <span className="result-list">
-            {/* {regionData.neighbours.map((neighour) => (
+            {/* {regionData.neighbors.map((neighour) => (
               <p>{neighour}</p>
             ))} */}
-            {regionData.neighbours.join(", ")}
+            {regionData.neighbors.join(", ")}
           </span>
         </span>
         <span className="result-space">
@@ -80,7 +80,7 @@ export default function CepIdentifier() {
         </span>
       </div>
       {/* <ul>
-        {regionData.neighbours.map((neighour) => (
+        {regionData.neighbors.map((neighour) => (
           <li>{neighour}</li>
         ))}
       </ul>
