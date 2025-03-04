@@ -1,6 +1,18 @@
 .sheet-create {
   padding: 0 10px;
 }
+.sheet-create-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 9rem;
+}
+.sheet-create-header h2 {
+}
+.buttons-section {
+  display: flex;
+  gap: 10px;
+}
 .filters {
   box-sizing: border-box;
   display: flex;

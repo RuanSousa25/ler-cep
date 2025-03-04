@@ -28,7 +28,6 @@ export default function Config() {
   }
   async function handleCoordSheetUpload(file) {
     const coordArray = await parseExcelFile(file);
-    console.log(coordArray);
     loadCoordsSheet(coordArray);
     loadTree(buildRTree(coordArray));
     return;

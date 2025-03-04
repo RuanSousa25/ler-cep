@@ -1,5 +1,5 @@
 import { useContext, useMemo, useState } from "react";
-import { CepContext, useCepContext } from "../../Context/CepContext";
+import { CepContext } from "../../Context/CepContext";
 import DropdownFilter from "../DropdownFilter/DropdownFilter";
 import "./SheetCreate.css";
 import SheetView from "../SheetView/SheetView";
@@ -7,7 +7,7 @@ import { useCepProcessor } from "../../Hooks/useCepProcessor";
 
 export default function SheetCreate() {
   const { parseToExcelFile } = useCepProcessor();
-  const { cepSheet, hierarchyCepSheet } = useContext(CepContext);
+  const { hierarchyCepSheet } = useContext(CepContext);
   const [selectedUfs, setSelectedUfs] = useState([]);
   const [selectedCities, setSelectedCities] = useState([]);
   const [selectedNeighbors, setSelectedNeighbors] = useState([]);
@@ -68,39 +68,48 @@ export default function SheetCreate() {
   return (
     <>
       <div className="sheet-create">
-        <h2>Criar Planilha</h2>
-        {selectedBands.length !== 0 && (
-          <>
-            <button className="button" onClick={() => setSheetView(true)}>
+        <div className="sheet-create-header">
+          <h2>Criar Planilha</h2>
+          <span className="buttons-section">
+            <button
+              disabled={selectedBands.length === 0}
+              className="button"
+              onClick={() => setSheetView(true)}
+            >
               Visualização de planilha
             </button>
-            <button className="button" onClick={downloadSheet}>
-              Salvar Planilha
+            <button
+              disabled={selectedBands.length === 0}
+              className="button"
+              onClick={downloadSheet}
+            >
+              Baixar Planilha
             </button>
-          </>
-        )}
-        <div className="filters">
-          <DropdownFilter
-            options={hierarchyCepSheet ? availableNeighbors : []}
-            label={"Bairro"}
-            selectedValues={selectedNeighbors}
-            setSelectedValues={setSelectedNeighbors}
-          />
-          <DropdownFilter
-            options={hierarchyCepSheet ? availableCities : []}
-            label={"Cidade"}
-            selectedValues={selectedCities}
-            setSelectedValues={setSelectedCities}
-          />
-          <DropdownFilter
-            options={hierarchyCepSheet ? availableUfs : []}
-            label={"UF"}
-            selectedValues={selectedUfs}
-            setSelectedValues={setSelectedUfs}
-          />
+          </span>
+          <span className="filters">
+            <DropdownFilter
+              options={hierarchyCepSheet ? availableNeighbors : []}
+              label={"Bairro"}
+              selectedValues={selectedNeighbors}
+              setSelectedValues={setSelectedNeighbors}
+            />
+            <DropdownFilter
+              options={hierarchyCepSheet ? availableCities : []}
+              label={"Cidade"}
+              selectedValues={selectedCities}
+              setSelectedValues={setSelectedCities}
+            />
+            <DropdownFilter
+              options={hierarchyCepSheet ? availableUfs : []}
+              label={"UF"}
+              selectedValues={selectedUfs}
+              setSelectedValues={setSelectedUfs}
+            />
+          </span>
         </div>
+
         <div className="result">
-          {selectedNeighbors.map((neighbor) => neighbor + ",")}
+          {selectedNeighbors.map((neighbor) => neighbor + ", ")}
         </div>
       </div>
 

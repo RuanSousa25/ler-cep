@@ -113,7 +113,6 @@ export const useCepSheet = (data) => {
       uf.push(range.uf);
     });
 
-    console.log(neighbors);
     setIsLoading(false);
 
     return {
