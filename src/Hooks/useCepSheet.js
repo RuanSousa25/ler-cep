@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useCepSheet = (data) => {
+export const useCepSheet = (data, hierarchyData = null) => {
   const [isLoading, setIsLoading] = useState(false);
 
   function findCepRange(cepArray) {
@@ -51,17 +51,20 @@ export const useCepSheet = (data) => {
     };
   }
 
-  function compareCepBand(inputedCepArray) {
+  function compareCepBand(inputedCepArray, analyzeCorrespondence) {
+    if (analyzeCorrespondence && hierarchyData === null) return;
     setIsLoading(true);
-    let regionData = [];
-    let neighbors = [];
-    let uf = [];
-    let cities = [];
+    let regionData = new Set();
+    let neighbors = new Set();
+    let states = new Set();
+    let cities = new Set();
     let uncoveredRanges = [];
+
+    let controller = new Set();
+    let bands = [];
+
     inputedCepArray.forEach((range) => {
       let dataArray = [...data];
-
-      //Encontra o index máximo que a faixa alcança
       let endIndex = dataArray.findIndex(
         (item) => item.cep_final >= range.cep_final
       );
@@ -69,20 +72,15 @@ export const useCepSheet = (data) => {
       if (dataArray[endIndex].cep_inicial > range.cep_final) {
         endIndex--;
       }
-      //Se ultrapassar todos as faixas, define como a última faixa cadastrada
       if (endIndex === -1) {
         endIndex = dataArray.length - 1;
       }
-
-      //corta tudo após o final
       dataArray = dataArray.slice(0, endIndex + 1);
 
-      //Encontra o index mínimo que a faixa alcança
       let startIndex = dataArray.findIndex(
         (item) => item.cep_inicial >= range.cep_inicial
       );
 
-      //Se ultrapassar todos os iniciais, checa se está no último intervalo
       if (
         startIndex === -1 &&
         range.cep_inicial > dataArray[endIndex].cep_final
@@ -99,27 +97,86 @@ export const useCepSheet = (data) => {
       ) {
         startIndex--;
       }
-
-      //recorta todos os elementos anteriores ao index inicial
       dataArray = dataArray.slice(startIndex);
-      //adiciona o resto ao resultado
-      regionData.push(...dataArray);
+
+      if (analyzeCorrespondence) {
+        let coverageMap = new Map();
+        dataArray.forEach((band) => {
+          coverageMap.set(band.cep_inicial, band.cep_final);
+        });
+
+        let mergedRanges = [];
+        inputedCepArray
+          .sort((a, b) => a.cep_inicial - b.cep_inicial)
+          .forEach((r) => {
+            if (
+              mergedRanges.length > 0 &&
+              mergedRanges[mergedRanges.length - 1].cep_final + 1 >=
+                r.cep_inicial
+            ) {
+              mergedRanges[mergedRanges.length - 1].cep_final = Math.max(
+                mergedRanges[mergedRanges.length - 1].cep_final,
+                r.cep_final
+              );
+            } else {
+              mergedRanges.push({ ...r });
+            }
+          });
+
+        dataArray.forEach((band) => {
+          if (controller.has(band.cep_inicial)) return;
+          controller.add(band.cep_inicial);
+
+          let isFullyCovered = mergedRanges.some(
+            (r) =>
+              r.cep_inicial <= band.cep_inicial && r.cep_final >= band.cep_final
+          );
+
+          bands.push({
+            cep_inicial: band.cep_inicial,
+            cep_final: band.cep_final,
+            bairro: band.bairro,
+            cidade: band.cidade,
+            uf: band.uf,
+            correspondencia: isFullyCovered ? "total" : "parcial",
+          });
+        });
+      }
+      regionData.add(...dataArray);
     });
 
     let ranges = [...new Set(regionData)];
     regionData.forEach((range) => {
-      neighbors.push(`${range.bairro} (${range.cidade} - ${range.uf})`);
-      cities.push(range.cidade);
-      uf.push(range.uf);
+      let { uf, cidade, bairro } = range;
+
+      if (analyzeCorrespondence) {
+        hierarchyData[uf][cidade][bairro].forEach((band) => {
+          if (!controller.has(band.cep_inicial)) {
+            console.log(band);
+            bands.push({
+              cep_inicial: band.cep_inicial,
+              cep_final: band.cep_final,
+              bairro: bairro,
+              cidade: cidade,
+              uf: uf,
+              correspondencia: "nenhuma",
+            });
+          }
+        });
+      }
+
+      neighbors.add(`${bairro} (${cidade} - ${uf})`);
+      cities.add(cidade);
+      states.add(uf);
     });
 
     setIsLoading(false);
 
     return {
       neighbors: [...new Set(neighbors)],
-      uf: [...new Set(uf)],
+      uf: [...new Set(states)],
       cities: [...new Set(cities)],
-      ranges,
+      ranges: analyzeCorrespondence ? bands : ranges,
       uncoveredRanges,
     };
   }
