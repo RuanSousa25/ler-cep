@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ler-cep/static/css/main.d29da0d4.css",
-    "main.js": "/ler-cep/static/js/main.afd66ea7.js",
+    "main.css": "/ler-cep/static/css/main.7a66df1d.css",
+    "main.js": "/ler-cep/static/js/main.8fc71bbf.js",
     "static/js/488.f01babba.chunk.js": "/ler-cep/static/js/488.f01babba.chunk.js",
     "index.html": "/ler-cep/index.html",
-    "main.d29da0d4.css.map": "/ler-cep/static/css/main.d29da0d4.css.map",
-    "main.afd66ea7.js.map": "/ler-cep/static/js/main.afd66ea7.js.map",
+    "main.7a66df1d.css.map": "/ler-cep/static/css/main.7a66df1d.css.map",
+    "main.8fc71bbf.js.map": "/ler-cep/static/js/main.8fc71bbf.js.map",
     "488.f01babba.chunk.js.map": "/ler-cep/static/js/488.f01babba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d29da0d4.css",
-    "static/js/main.afd66ea7.js"
+    "static/css/main.7a66df1d.css",
+    "static/js/main.8fc71bbf.js"
   ]
 }
