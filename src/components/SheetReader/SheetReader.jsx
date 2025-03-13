@@ -24,29 +24,34 @@ export default function SheetReader() {
     <>
       <div className="sheet-reader">
         <div className="tab-header">
-          <span>
+          <span className="title-span">
             <h2>Ler Planilha</h2>
+
             {cepSheet === null && (
-              <p>
+              <p className="warning">
                 Você precisa adicionar uma base de CEPs para utilizar essa
                 função
               </p>
             )}
-            {regionData.length !== 0 && (
-              <>
-                <button className="button" onClick={() => setSheetView(true)}>
-                  Visualização de planilha
-                </button>
-              </>
-            )}
+          </span>
+          <div className="config-reader">
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                checked={analyzeCorrespondence}
+                onChange={(e) => setAnalyzeCorrespondence(e.target.checked)}
+              />
+              Analisar correspondência
+            </label>
+          </div>
+
+          <span className="buttons-section">
             <button
+              disabled={regionData.length === 0}
               className="button"
-              onClick={() =>
-                setAnalyzeCorrespondence((prevState) => !prevState)
-              }
+              onClick={() => setSheetView(true)}
             >
-              Analisar correspondência (
-              {analyzeCorrespondence ? "true" : "false"})
+              Visualização de planilha
             </button>
           </span>
           <span className="file-input-span">

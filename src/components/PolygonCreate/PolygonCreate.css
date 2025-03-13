@@ -1,21 +1,22 @@
-.polygon-create {
-  padding: 5px 10px;
-}
-.polygon-create > span {
+.polygon-form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-.polygon-create > span > span {
+.polygon-form > span {
   display: flex;
   flex-direction: row;
   padding: 5px 0px;
   gap: 10px;
   align-items: center;
+  width: 100%;
+  justify-content: space-around;
 }
-.polygon-create > span > span > label {
+.polygon-form > span > label {
   width: 70px;
 }
-.polygon-create input[type="text"] {
+.polygon-form input[type="text"] {
   background: none;
   border: none;
   outline: none;
@@ -25,6 +26,14 @@
   border-bottom: 1px solid #596466;
   opacity: 1;
   color: white;
+}
+
+.input-row span {
+  width: 50%;
+  display: flex;
+}
+.input-row label {
+  width: 25%;
 }
 .polygon-create button {
   width: 140px;

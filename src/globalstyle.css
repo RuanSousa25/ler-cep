@@ -17,14 +17,25 @@
   margin-bottom: 5px;
   border-top-right-radius: 5px;
 }
-
-.tab-header span {
+.title-span {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: end;
 }
-.tab-header span p {
+.title-span * {
+  margin: 8px 0px;
+}
+.buttons-section {
+  display: flex;
+  padding: 5px 0;
+  gap: 10px;
+}
+.title-span .warning {
   font-size: 14px;
   color: #c7c7c7;
+}
+.checkbox input {
+  background-color: none;
+  border: none;
 }

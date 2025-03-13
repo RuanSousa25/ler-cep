@@ -68,8 +68,16 @@ export default function SheetCreate() {
   return (
     <>
       <div className="sheet-create">
-        <div className="sheet-create-header">
-          <h2>Criar Planilha</h2>
+        <div className="sheet-create-header tab-header">
+          <span className="title-span">
+            <h2>Criar Planilha</h2>
+            {hierarchyCepSheet === null && (
+              <p className="warning">
+                Você precisa adicionar uma base de CEPs para utilizar essa
+                função
+              </p>
+            )}
+          </span>
           <span className="buttons-section">
             <button
               disabled={selectedBands.length === 0}

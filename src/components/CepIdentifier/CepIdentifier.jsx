@@ -22,10 +22,10 @@ export default function CepIdentifier() {
   return (
     <div className="cep-identifier">
       <div className="tab-header cep-identifier-header">
-        <span>
+        <span className="title-span">
           <h2>Busca CEP</h2>
           {cepSheet === null && (
-            <p>
+            <p className="warning">
               Você precisa adicionar uma base de CEPs para utilizar essa função
             </p>
           )}

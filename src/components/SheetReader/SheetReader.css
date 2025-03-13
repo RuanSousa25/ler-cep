@@ -3,6 +3,10 @@
   flex-direction: column;
   height: 100%;
 }
+.config-reader {
+  padding: 5px 0;
+  width: 100%;
+}
 .file-input-span {
   margin: 10px 0px;
   width: 100%;

@@ -22,24 +22,28 @@ export default function PolygonReader() {
   }
   return (
     <div className="polygon-reader">
-      <h2>Ler Polígono</h2>
-      <div className="input-space">
-        <input
-          disabled={coordsSheet === null}
-          className="input-cep"
-          type="text"
-          value={inputedCoords}
-          onChange={(e) => {
-            setInputedCoords(e.target.value);
-          }}
-        ></input>
-        <button
-          disabled={coordsSheet === null}
-          className="button"
-          onClick={handleClick}
-        >
-          Enviar
-        </button>
+      <div className="tab-header">
+        <span className="title-span">
+          <h2>Ler Polígono</h2>
+        </span>
+        <div className="input-space">
+          <input
+            disabled={coordsSheet === null}
+            className="input-cep"
+            type="text"
+            value={inputedCoords}
+            onChange={(e) => {
+              setInputedCoords(e.target.value);
+            }}
+          ></input>
+          <button
+            disabled={coordsSheet === null}
+            className="button"
+            onClick={handleClick}
+          >
+            Enviar
+          </button>
+        </div>
       </div>
       <div className="result">
         <span className="result-space">
