@@ -26,7 +26,6 @@ export function useCepProcessor() {
         const jsonData = utils.sheet_to_json(sheet, { raw: false, defval: "" });
         allData = allData.concat(jsonData);
       });
-      console.log(allData);
       return allData;
     } catch (error) {
       console.log("Não foi possível enviar a planilha", error);

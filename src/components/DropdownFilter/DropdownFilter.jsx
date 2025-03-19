@@ -33,7 +33,6 @@ export default function DropdownFilter({
   }, [query, options, selectedValues]);
 
   function handleSelect(value) {
-    console.log(selectedValues);
     let newSelectedValues = selectedValues;
     let index = newSelectedValues.indexOf(value);
     if (index === -1) {

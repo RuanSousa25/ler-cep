@@ -24,7 +24,6 @@ export default function SheetCreate() {
         bands.push(band);
       });
     });
-    console.log(bands);
     return bands;
   }, [selectedNeighbors]);
 

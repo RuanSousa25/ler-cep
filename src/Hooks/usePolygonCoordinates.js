@@ -26,7 +26,6 @@ export function usePolygonCoordinates(data) {
 
   function buildRTree(coordinatesSheet) {
     if (coordinatesSheet == null) return;
-    console.log("carregando tree");
 
     const tree = new RBush();
     const items = coordinatesSheet.reduce(
@@ -45,16 +44,13 @@ export function usePolygonCoordinates(data) {
       []
     );
     tree.load(items);
-    console.log("tree carregada");
     return tree;
   }
 
   async function findRegionDataInPolygon(vertexArr, tree) {
     //const tree = buildRTree(data);
     const bbox = getBoundingBox(vertexArr);
-    console.log(tree);
     const candidates = tree.search(bbox);
-    console.log(candidates);
     const poly = polygon([vertexArr]);
     let result = candidates
       .filter(({ minX, minY }) =>

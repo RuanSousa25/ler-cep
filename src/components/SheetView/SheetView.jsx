@@ -16,8 +16,6 @@ export default function SheetView({
     return { keys, entries };
   }, [ranges]);
 
-  console.log(keys);
-  console.log(entries);
   return (
     isSheetViewActive && (
       <div className="sheet-view">
@@ -44,7 +42,6 @@ export default function SheetView({
             {entries.map((entry, rowIndex) => (
               <tr key={rowIndex}>
                 {entry.map((el, colIndex) => {
-                  console.log(typeof el);
                   return (
                     <td key={colIndex}>
                       {typeof el === "object" ? JSON.stringify(el) : el}

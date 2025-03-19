@@ -14,9 +14,7 @@ export default function SheetReader() {
   const [analyzeCorrespondence, setAnalyzeCorrespondence] = useState(false);
 
   async function handleButtonClick(file) {
-    console.log(regionData);
     const sheetArray = await formatSheet(file);
-    console.log(sheetArray);
     let dataArray = compareCepBand(sheetArray, analyzeCorrespondence);
     setRegionData(dataArray);
   }

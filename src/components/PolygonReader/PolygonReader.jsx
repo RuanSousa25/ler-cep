@@ -13,7 +13,6 @@ export default function PolygonReader() {
   const { findCepRange, isProcessorLoading } = useCepSheet(cepSheet);
 
   async function handleClick() {
-    console.log(JSON.parse(inputedCoords));
     let result = await findRegionDataInPolygon(
       JSON.parse(inputedCoords),
       rtree

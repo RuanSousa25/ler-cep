@@ -7,7 +7,6 @@ export function useCoordinatesProcessor(coordinatesSheet) {
   function buildRTree(coordinatesSheet) {
     setLoadingCoordinatesProcessor(true);
     if (coordinatesSheet == null) return;
-    console.log("carregando tree");
     const tree = new RBush();
     const items = coordinatesSheet.map(({ longitude, latitude, cep }) => ({
       minX: longitude,
@@ -19,7 +18,6 @@ export function useCoordinatesProcessor(coordinatesSheet) {
 
     tree.load(items);
     setLoadingCoordinatesProcessor(false);
-    console.log("tree carregada");
     return tree;
   }
 

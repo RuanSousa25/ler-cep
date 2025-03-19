@@ -5,7 +5,6 @@ export default function TabsController({ children, identifiers }) {
   const [activeTab, setActiveTab] = useState(0);
 
   function handleActiveTab(index) {
-    console.log(children);
     setActiveTab(index);
   }
   return (

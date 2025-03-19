@@ -27,7 +27,6 @@ export default function CustomFileInput({
     e.preventDefault();
   }
   function handleClick() {
-    console.log(file);
     if (!file) return;
 
     onButtonClick(file);
