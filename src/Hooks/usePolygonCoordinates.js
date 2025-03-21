@@ -48,7 +48,6 @@ export function usePolygonCoordinates(data) {
   }
 
   async function findRegionDataInPolygon(vertexArr, tree) {
-    //const tree = buildRTree(data);
     const bbox = getBoundingBox(vertexArr);
     const candidates = tree.search(bbox);
     const poly = polygon([vertexArr]);

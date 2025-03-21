@@ -4,7 +4,6 @@ export const useCepSheet = (data, hierarchyData = null) => {
   const [isLoading, setIsLoading] = useState(false);
 
   function findCepRange(cepArray) {
-    let count = 0;
     setIsLoading(true);
     let neighbors = [];
     let uf = [];
@@ -21,9 +20,6 @@ export const useCepSheet = (data, hierarchyData = null) => {
       while (inicio <= fim) {
         meio = Math.floor((inicio + fim) / 2);
         if (data[meio].cep_inicial <= cep && data[meio].cep_final >= cep) {
-          if (data[meio].cidade !== "Fortaleza") {
-            count++;
-          }
           found = true;
           neighbors.push(data[meio].bairro);
           uf.push(data[meio].uf);
@@ -41,6 +37,7 @@ export const useCepSheet = (data, hierarchyData = null) => {
       }
     });
     setIsLoading(false);
+    console.log(ranges);
     return {
       neighbors: [...new Set(neighbors)],
       uf: [...new Set(uf)],
@@ -53,7 +50,7 @@ export const useCepSheet = (data, hierarchyData = null) => {
   function compareCepBand(inputedCepArray, analyzeCorrespondence) {
     let inicio = new Date().getTime();
     setIsLoading(true);
-    let regionData = new Set();
+    let regionData = [];
     let neighbors = new Set();
     let states = new Set();
     let cities = new Set();
@@ -116,13 +113,14 @@ export const useCepSheet = (data, hierarchyData = null) => {
           });
         });
       }
-      regionData.add(...dataArray);
+      regionData.push(...dataArray);
     });
 
+    console.log(regionData);
     let ranges = [...new Set(regionData)];
     regionData.forEach((range) => {
       let { uf, cidade, bairro } = range;
-
+      if (cidade === "Catuana") console.log(range);
       if (analyzeCorrespondence) {
         hierarchyData[uf][cidade][bairro].forEach((band) => {
           if (!controller.has(band.cep_inicial)) {
@@ -148,6 +146,8 @@ export const useCepSheet = (data, hierarchyData = null) => {
       `Tempo de execução (${inputedCepArray.length} faixas): ` +
         (new Date().getTime() - inicio) / 1000
     );
+    console.log(bands);
+    console.log(ranges);
     return {
       neighbors: [...new Set(neighbors)],
       uf: [...new Set(states)],
@@ -191,6 +191,7 @@ export const useCepSheet = (data, hierarchyData = null) => {
         start = mid + 1;
       }
     }
+
     return result;
   }
 
