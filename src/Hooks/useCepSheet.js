@@ -180,7 +180,7 @@ export const useCepSheet = (data, hierarchyData = null) => {
   function binarySearchStart(array, target) {
     let start = 0;
     let end = array.length - 1;
-    let result = start;
+    let result = end;
 
     while (start <= end) {
       let mid = Math.floor((start + end) / 2);
